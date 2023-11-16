@@ -1,0 +1,230 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	
+    <script type="text/javascript" src="common/jquery.fileupload.js" charset="utf-8"></script>
+    <script type="text/javascript" src="common/Fluig.js"></script>
+	<script type="text/javascript" src="common/Util.js"></script>
+	<script type="text/javascript" src="common/jquery.mask.js"></script>
+
+	<script type="text/javascript" src= "controllers/FormController.js"></script>
+
+	<script type="text/javascript" src="views/FormView.js"></script>
+
+    <script type="text/template" class="templateItemLista" id="templateItemLista">
+		<li class="list-group-item">
+		  <button class="btn btn-danger" title="Excluir" onclick="formController.removerArquivoLista('{{idArquivo}}', '{{idListaHtml}}', '{{categoria}}')">
+			<i class="fluigicon fluigicon-trash icon-sm"></i>
+		  </button>
+		  <button class="btn btn-success" title="Visualizar" onclick="formController.visualizarArquivoLista('{{idArquivo}}')">
+			<i class="fluigicon fluigicon-eye-open icon-sm"></i>
+		  </button>
+		  <span class="nomeArquivo"><b>{{nomeArquivo}}</b></span>
+		  <span class="idArquivo hidden">{{idArquivo}}</span>
+		</li>
+	  </script>
+
+	<link type="text/css" rel="stylesheet" href="style.css" />
+
+	</head>
+<body>
+
+    
+<div style="display:none;"><textarea name="jsonPastas" id="jsonPastas" cols="100" rows="100"></textarea></div>
+
+<div class="fluig-style-guide">
+
+<div class="row">
+	<div class="title">
+		<h1 class="text-center" align="center">Cadastro de Fornecedor</h1>
+	</div>
+</div>
+<form name="form" role="form">
+
+<div class="panel panel-primary" id="painelSolicitante">
+<div class="panel-heading">
+	<h3 class="panel-title"><b>Solicitante</b></h3>
+</div>
+<div class="panel-body">
+	<div class="row">
+		<div class="form-group col-md-4">
+			<label for="dataSolicitacao">Data Solicita&ccedil;&atilde;o</label>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="fluigicon fluigicon-calendar"></span>
+				</span>
+				<input class="form-control" type="text" name="dataSolicitacao" id="dataSolicitacao"
+					readonly />
+			</div>
+		</div>
+		<div class="form-group col-md-4">
+			<label for="nomeSolicitante">Nome </label>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="fluigicon fluigicon-brand"></span>
+				</span>
+				<input class="form-control" type="text" name="nomeSolicitante" id="nomeSolicitante"
+					readonly />
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			<a class="collapse-icon" data-toggle="collapse" href="#collapseFornecedor">
+				<b>Cadastro</b>
+			</a>
+		</h4>
+	</div>
+<div id="collapseFornecedor" class="panel-collapse collapse in">
+<div class="panel-body">
+    <fieldset class="fieldset-border" id="fieldsetDadosFornecedor">
+
+        <legend class="legend-border " data-toggle="collapse"
+                                                href="#fieldsetCollapseFormDados">
+                                                <a class="collapse-icon">
+                                                    Dados do Fornecedor <i
+                                                        class="fluigicon fluigicon-chevron-down icon-sm"></i></a>
+                                            </legend>
+        <div id="fieldsetCollapseFormDados" class="panel-collapse collapse in">
+    <div class="fs-full-width fs-display-flex">
+        <div class="form-group col-md-8">
+            <label for="rSocial">Razão Social:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="razaoSocial" class="form-control" id="rSocial" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-5 fs-md-margin-left ">
+            <label for="cnpj">CNPJ:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name='cnpj' maxlength="18" class="form-control cnpj" id="cnpj" placeholder="..." required>
+        </div>
+    </div>
+    
+    <div class="fs-full-width fs-display-flex">
+        <div class="form-group col-md-8">
+            <label for="nome-fantasia">Nome Fantasia:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="nomeFantasia" class="form-control" id="nome-fantasia" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-5 fs-md-margin-left ">
+            <label for="inscricao-estadual">Inscrição Estadual</label>
+            <input type="text" name='inscricaoEstadual' class="form-control" id="inscricao-estadual" placeholder="...">
+        </div>
+    </div>
+    
+    <div class="fs-full-width fs-display-flex">
+        <div class="form-group col-md-5">
+            <label for="cep">CEP:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="cep" maxlength="9" class="form-control cep" id="cep" placeholder="..." required>
+        </div>
+        <!--col-md-offset não funcionou-->
+        <div class="col-md-3 fs-md-margin-left"></div>
+        <div class="form-group col-md-5 ">
+            <label for="inscricao-municipal">Inscrição Municipal</label>
+            <input type="text" name="inscricaoMunicipal"  class="form-control" id="inscricao-municipal" placeholder="...">
+        </div>
+    </div>
+    
+    <div class="fs-full-width fs-display-flex">
+        <div class="form-group col-md-8">
+            <label for="logradouro">Endereço:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="endereco" class="form-control" id="logradouro" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-5 fs-md-margin-left ">
+            <label for="numero">Número:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text"  name="numeroEndereco" class="form-control" id="numero" placeholder="..." required>
+        </div>
+    </div>
+    
+    <div class="form-group col-md-12 fs-full-width">
+        <label for="complemento">Complemento:<span
+            class="required text-danger"><strong>*</strong></span></label>
+        <input type="text" name="complemento"  class="form-control" id="complemento" placeholder="..." required>
+    </div>
+    
+    <div class="fs-full-width fs-display-flex">
+        <div class="form-group col-md-5">
+            <label for="bairro">Bairro:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="bairro" class="form-control" id="bairro" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-5 fs-md-margin-left ">
+            <label for="municipio">Município:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="municipio" class="form-control" id="municipio" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-5 fs-md-margin-left ">
+            <label for="estado">Estado:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name='estado' class="form-control" id="estado" placeholder="..." required>
+        </div>
+    </div>
+
+    <div class="fs-full-width fs-display-flex">
+        <div class="form-group col-md-6">
+            <label for="nome-contato">Nome da pessoa de contato:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="nomeContato" class="form-control" id="nome-contato" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-4 fs-md-margin-left ">
+            <label for="telefone">Telefone:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="text" name="telefoneContato" class="form-control phone" id="telefone" placeholder="..." required>
+        </div>
+        <div class="form-group col-md-5 fs-md-margin-left ">
+            <label for="email">E-mail:<span
+                class="required text-danger"><strong>*</strong></span></label>
+            <input type="email" name="email"  class="form-control" id="email" placeholder="..." required>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="fieldset-border" id="fieldsetAnexos">
+    <legend class="legend-border">Anexos</legend>
+    <div class="row form-group">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2 form">
+                <span class="file-input-wrapper btn btn-info btn-block"
+                    id="btnAnexListaSolicitacao">
+                    Anexar
+                    <input type="file" id="anexarListaSolicitacao"
+                        name="anexarListaSolicitacao" data-url="/ecm/upload"
+                        onclick="formController.anexarListaArquivos(this, 'arquivosSolicitacao', 'listaSolicitacao');"
+                        multiple style="height: 100%; width: 100%;" />
+                </span>
+            </div>
+            <div class="col-md-10 docExigidos" style="display: block;">
+                <fieldset class="">
+                    <div class="row">
+                        <ul class="list-group" id="listaSolicitacao">
+                        </ul>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</fieldset>
+</div>
+</div>
+    
+</div>
+</form>
+</body>
+</html>
+
+
+
+
