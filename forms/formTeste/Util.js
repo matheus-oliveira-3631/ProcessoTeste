@@ -474,23 +474,22 @@ class Util {
   }
 
   static consultaCep() {
-    $(document).on("ready", function () {       
-      //Quando o campo cep perde o foco.
-      $("#cep").on("blur", function () {
-        if($(`#cep`).val().length == 9){
-          Util.consultaViaCep(`cep`)
-        }else{
-          Util.limpa_formulário_cep();
-        }        
-      });
-      $("#cep").on("keyup", function () {
-        if($(`#cep`).val().length == 9){
-          Util.consultaViaCep(`cep`)
-        }else{
-          Util.limpa_formulário_cep();
-        }
-                
-      });
+          
+    //Quando o campo cep perde o foco.
+    $("#cep").on("blur", function () {
+      if($(`#cep`).val().length == 9){
+        Util.consultaViaCep(`cep`)
+      }else{
+        Util.limpa_formulário_cep();
+      }        
+    });
+    $("#cep").on("keyup", function () {
+      if($(`#cep`).val().length == 9){
+        Util.consultaViaCep(`cep`)
+      }else{
+        Util.limpa_formulário_cep();
+      }
+              
     });
   }
 }
